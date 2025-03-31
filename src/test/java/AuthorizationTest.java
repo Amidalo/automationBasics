@@ -16,7 +16,7 @@ public class AuthorizationTest {
 
 
     @BeforeTest
-    public void beforeTestStage() {
+    public void setUp() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
 
@@ -27,7 +27,7 @@ public class AuthorizationTest {
 
     }
 
-    @Test
+    @Test(description = "Проверка наличия текста о предупреждении обязательного прохождения капчи")
     public void checkCaptchaRequirementsTest() {
         webDriver.get("https://habr.com/ru/articles/");
         webDriver.manage().window().maximize();
@@ -77,7 +77,7 @@ public class AuthorizationTest {
     }
 
     @AfterTest
-    public void afterTestStage() {
+    public void terminate() {
         webDriver.quit();
     }
 }
