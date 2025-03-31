@@ -1,5 +1,6 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -43,7 +44,7 @@ public class PublicationTest {
                     "div[1]/div/div[3]/div/div/div/a[1]");
             WebElement writePublicationButtonElement = webDriver.findElement(writePublicationButtonLocator);
             writePublicationButtonElement.click();
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(5);
 
             // Проверка наличия кода ошибки о том, что для просмотра страницы необходимо авторизоваться
             By errorCodeLocator = By.xpath("//div[@class=\"tm-error-message__code\"]");
@@ -53,6 +54,9 @@ public class PublicationTest {
 
         } catch (InterruptedException e) {
             Assert.fail("Тест был прерван: " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            Assert.fail("Возможно сообщение c ошибкой еще не успело появиться: " + e.getMessage() +
+                    "\n\nПопробуйте увеличить время паузы.");
         }
     }
 
